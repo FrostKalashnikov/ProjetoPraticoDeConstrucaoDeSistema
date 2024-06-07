@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -42,6 +41,7 @@ input[type="password"] {
 .entrar {
     width: 100%;
     padding: 10px;
+    top: 85px;
     background-color: #8e481e;
     color: #ffffff;
     border: none;
@@ -58,9 +58,28 @@ input[type="password"] {
     padding: 0;
     margin: 0;
     list-style-type: none;
+    ;
 }
 
 .forgot-password .esqueciASenha {
     text-decoration: none;
     color: #000000;
+}
+
+.cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+    top: 10px;
+    background: #8e481e;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    list-style-type: none;
+    position: relative; 
+    cursor: pointer; 
+    text-decoration: none; 
+    color: white; 
+    
 }
