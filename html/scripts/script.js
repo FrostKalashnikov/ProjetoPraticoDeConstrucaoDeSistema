@@ -17,7 +17,7 @@ function checkInputUsername(){
     const usernameValue = username.value;
     
     if(usernameValue ===""){
-     errorInput(username, "Preencha esse karalho")}
+     errorInput(username, "Preencha um nome")}
      else{
         const formItem = username.parentElement;
         formItem.className = "form-content"
@@ -27,7 +27,7 @@ function checkInputEmail(){
  const emailValue = email.value;
 
  if(emailValue === ""){
-   errorInput(email, "DIGITA O EMAIL ANIMAL")
+   errorInput(email, "DIGITE UM EMAIL")
  }else{
     const formItem = email.parentElement;
     formItem.className = "form-content"
@@ -37,9 +37,9 @@ function checkInputEmail(){
 function checkInputPassword(){
 const passwordValue = password.value;
 if(passwordValue === ""){
-    errorInput(password, "A senha porra")
+    errorInput(password, "digite uma senha")
 }else if(passwordValue.length <8){
-    errorInput(password, "Digite mais de 8 caracteres... isso é uma ameaça")
+    errorInput(password, "Digite mais de 8 caracteres...")
 
 }else{
     const formItem = password.parentElement;
