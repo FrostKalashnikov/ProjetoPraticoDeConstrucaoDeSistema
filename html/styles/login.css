@@ -53,15 +53,14 @@ input[type="password"] {
     background-color: #6c3618;
 }
 
-.Cadastrar {
+.forgot-password {
     text-align: center;
     padding: 0;
     margin: 0;
     list-style-type: none;
-    ;
 }
 
-.Cadastrar .esqueciASenha {
+.esqueciASenha {
     text-decoration: none;
     color: #000000;
 }
@@ -80,6 +79,6 @@ input[type="password"] {
     position: relative; 
     cursor: pointer; 
     text-decoration: none; 
-    color: white; 
-    
+    color: #ffffff;
+    border: none;
 }
