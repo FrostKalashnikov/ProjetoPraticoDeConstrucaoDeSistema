@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles/meufinanceiro.css">
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h1 class="titulo">MEU FINANCEIRO</h1>
+        </div>
+
+        <div class="divBotoes">
+            <button id="botaoAddGanho" class="botaoGanhoGasto">Adicionar Ganho</i></button>
+            <button id="botaoAddGasto" class="botaoGanhoGasto">Adicionar Gasto</i></button>
+        </div>
+
+        <dialog>
+            <div class="Modal-Container">
+                <div class="Modal">
+                    <form id="myForm">
+                        <div>
+                            <h1 id="textoGanhoGasto" class="Ganho_Gasto">INSERIR GASTOS</h1>
+                        </div>
+
+                        <label for="m-nome"></label>
+                        <input id="m-nome" type="text" placeholder="Titulo" required />
+
+                        <label for="m-valor"></label>
+                        <input id="m-valor" type="text" placeholder="Valor" required />
+
+                        <label for="m-vencimento"></label>
+                        <input id="m-vencimento" type="text" placeholder="Vencimento" />
+
+                        <button class="btnAdicionar" id="btnAdicionar">Adicionar</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+        <div class="content">
+            <table>
+                <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="scripts/meufinanceiro.js"></script>
+</body>
+
+</html>
