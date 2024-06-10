@@ -33,6 +33,26 @@ BotaoAdicionar.onclick = function(){
     console.log(financeiro.arrayFinancas);
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/financas')
+        .then(response => response.json())
+        .then(data => {
+            if (data.length === 0) {
+                console.log('Não há finanças cadastradas.')
+            } else {
+                data.forEach(financa => {
+                    console.log(financa)
+                    financeiro.arrayFinancas.push(financa)
+                })
+                financeiro.listaTabela()
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao obter finanças:', error);
+            alert('Erro ao obter finanças.');
+        });
+});
+
 class Financeiro{
 
     constructor(){
@@ -58,24 +78,38 @@ class Financeiro{
             let td_Nome = tr.insertCell()
             let td_Preco = tr.insertCell()
 
-            td_Nome.innerText = this.arrayFinancas[i].Nome
-            td_Preco.innerText = 'R$ ' + this.arrayFinancas[i].Preco
+            td_Nome.innerText = this.arrayFinancas[i].NOME
+            td_Preco.innerText = 'R$ ' + this.arrayFinancas[i].VALOR
 
-            tr.className = (this.arrayFinancas[i].Ganho) ? 'trGanho' : 'trGasto'
+            tr.className = (this.arrayFinancas[i].GANHO) ? 'trGanho' : 'trGasto'
             console.log(this.arrayFinancas[i].Ganho)
         }
     }
 
     adicionar(financa){
         this.arrayFinancas.push(financa)
+        fetch('/addfinancas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ VALOR: financa.VALOR, GANHO: financa.GANHO, NOME: financa.NOME })
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                console.log('Financa adicionada')
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar Financa:', error)
+            });
+
     }
 
     LerDados(){
         let financa = {}
 
-        financa.Ganho = this.bGanho
-        financa.Nome = document.getElementById('m-nome').value
-        financa.Preco = document.getElementById('m-valor').value
+        financa.VALOR = document.getElementById('m-valor').value
+        financa.GANHO = this.bGanho
+        financa.NOME = document.getElementById('m-nome').value
         
         return financa
     }
@@ -83,12 +117,12 @@ class Financeiro{
     validarCampos(financa){
         let msg = ''
 
-        if(financa.Nome == ''){
+        if(financa.NOME == ''){
             msg += '- Informe o Nome \n'
         }
 
-        if(financa.Preco == ''){
-            msg += '- Informe o Preço \n'
+        if(financa.VALOR == ''){
+            msg += '- Informe o Valor \n'
         }
 
         if(msg != ''){

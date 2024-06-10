@@ -1,10 +1,30 @@
-document.getElementById('Cadastrar').addEventListener('click', function() {
-    // Ação ao clicar no botão "Entrar"
-    window.location.href = 'cadastro.html'; // Substitua 'cadastro.html' pela URL da sua página de cadastro
-});
-
-document.getElementById('forgot-password-link').addEventListener('click', function(event) {
+document.getElementById('entrar-button').addEventListener('click', function (event) {
     event.preventDefault();
-    // Ação ao clicar no link "Esqueceu sua senha?"
-    alert('Redirecionar para a página de recuperação de senha.');
+
+    const email = document.getElementById('email-input').value
+    const password = document.getElementById('password-input').value
+
+    fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: password })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Login realizado com sucesso!')
+                window.location.href = '/meufinanceiro'
+            } else {
+                alert('Email ou senha incorretos.')
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao fazer login:', error)
+            alert('Erro ao fazer login.')
+        })
+
+})
+
+document.getElementById('cadastro').addEventListener('click', function () {
+    window.location.href = '/cadastro';
 });

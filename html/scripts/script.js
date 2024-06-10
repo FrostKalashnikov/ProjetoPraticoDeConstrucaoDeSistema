@@ -7,84 +7,98 @@ const passwordConfimation = document.getElementById("password-confirmation");
 
 form.addEventListener("submit", (event) => {
 
-event.preventDefault();
-checkform();
+    event.preventDefault();
+    checkform();
 
 })
 
-function checkInputUsername(){
+function checkInputUsername() {
 
     const usernameValue = username.value;
-    
-    if(usernameValue ===""){
-     errorInput(username, "Preencha um nome")}
-     else{
+
+    if (usernameValue === "") {
+        errorInput(username, "Preencha um nome")
+    }
+    else {
         const formItem = username.parentElement;
         formItem.className = "form-content"
-     }
+    }
 }
-function checkInputEmail(){
- const emailValue = email.value;
+function checkInputEmail() {
+    const emailValue = email.value;
 
- if(emailValue === ""){
-   errorInput(email, "DIGITE UM EMAIL")
- }else{
-    const formItem = email.parentElement;
-    formItem.className = "form-content"
+    if (emailValue === "") {
+        errorInput(email, "DIGITE UM EMAIL")
+    } else {
+        const formItem = email.parentElement;
+        formItem.className = "form-content"
 
- }
+    }
 }
-function checkInputPassword(){
-const passwordValue = password.value;
-if(passwordValue === ""){
-    errorInput(password, "digite uma senha")
-}else if(passwordValue.length <8){
-    errorInput(password, "Digite mais de 8 caracteres...")
+function checkInputPassword() {
+    const passwordValue = password.value;
+    if (passwordValue === "") {
+        errorInput(password, "digite uma senha")
+    } else if (passwordValue.length < 8) {
+        errorInput(password, "Digite mais de 8 caracteres...")
 
-}else{
-    const formItem = password.parentElement;
-    formItem.className = "form-content"
-}
+    } else {
+        const formItem = password.parentElement;
+        formItem.className = "form-content"
+    }
 
 }
-function checkInputPasswordConfirmation(){
+function checkInputPasswordConfirmation() {
     const passwordValue = password.value;
     const confirmationPasswordValue = passwordConfimation.value;
-    if( confirmationPasswordValue=== ""){
+    if (confirmationPasswordValue === "") {
         errorInput(confirmationPasswordValue, "A confirmação é necessária.")
-    }else if(confirmationPasswordValue !== passwordValue){
+    } else if (confirmationPasswordValue !== passwordValue) {
         errorInput(passwordConfimation, "As senhas não são iguais")
-    }else{
+    } else {
         const formItem = passwordConfimation.parentElement;
         formItem.className = "form-content"
     }
 
-    }
-function checkform(){
-checkInputUsername();
-checkInputEmail();
-checkInputPassword();
-checkInputPasswordConfirmation();
-
-const formItems = form.querySelectorAll(".form-content")
-
-const isValid = [...formItems].every ((item) =>{
-    return item.className === "form-content"
-});
-if(isValid){
-    alert("CADASTRADO COM SUCESSO")
 }
-}    
-    
-    
+function checkform() {
+    checkInputUsername();
+    checkInputEmail();
+    checkInputPassword();
+    checkInputPasswordConfirmation();
 
+    const formItems = form.querySelectorAll(".form-content")
 
-function errorInput(input, message){
-const formItem = input.parentElement;
-const textMessage = formItem.querySelector("a")
+    const isValid = [...formItems].every((item) => {
+        return item.className === "form-content"
+    });
+    if (isValid) {
 
-textMessage.innerText = message;
+        fetch('/cadastro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome: username.value, email: email.value, senha: password.value })
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                alert('Cadastro realizado com sucesso!')
+                window.location.href = '/'
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar:', error)
+                alert('Erro ao cadastrar.')
+            });
 
-formItem.className = "form-content error"
+    }
+}
+
+function errorInput(input, message) {
+    const formItem = input.parentElement;
+    const textMessage = formItem.querySelector("a")
+
+    textMessage.innerText = message;
+
+    formItem.className = "form-content error"
 
 }
